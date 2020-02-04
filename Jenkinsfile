@@ -1,6 +1,6 @@
 def project = 'people-service'
 def appName = 'people-service'
-def tenancy='dpmoke'
+def tenancy='frobvssbhgds'
 def ocir='fra.ocir.io'
 def imageTag = "${ocir}/${tenancy}/oracleimc/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
@@ -84,8 +84,8 @@ spec:
 			steps {		
 				container('kubectl') {		
 		    		sh 'kubectl get pods'	
-		    		sh("sed -i.bak 's#iad.ocir.io/gse00013828/oracleimc/people-rest-service:1.0#${imageTag}#' ./k8s/deployments/people-service-deployment.yaml")
-		    		sh("kubectl apply -f ./k8s/deployments/people-service-deployment.yaml")
+		    		sh("sed -i.bak 's#fra.ocir.io/frobvssbhgds/oracleimc/people-service:1.0#${imageTag}#' ./k8s/deployments/people-service-deployment.yaml")
+		    		sh("kubectl apply -f ./k8s/deployments/people-deployment.yaml")
 		    		sh("kubectl apply -f ./k8s/services/people-service.yaml")
 		    		sh("kubectl apply -f ./k8s/services/ingress.yaml")
 		    		sh("echo `kubectl get svc -o jsonpath='{.items[*].status.loadBalancer.ingress[*].ip}' --all-namespaces`")            
